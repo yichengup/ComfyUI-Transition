@@ -23,7 +23,7 @@ class LinearTransition:
     RETURN_TYPES = ("IMAGE", "INT")
     RETURN_NAMES = ("frames", "fps_int")
     FUNCTION = "generate_transition"
-    CATEGORY = "animation/transition"
+    CATEGORY = "Transition"
     
     def generate_transition(self, image1, image2, frames, direction, fps):
         # 确保两张图片有相同的尺寸
