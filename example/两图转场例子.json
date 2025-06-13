@@ -1,0 +1,755 @@
+{
+  "id": "809dc0a7-b3f6-4fc0-bcbf-3085302593e1",
+  "revision": 0,
+  "last_node_id": 31,
+  "last_link_id": 52,
+  "nodes": [
+    {
+      "id": 14,
+      "type": "DualLineTransition",
+      "pos": [
+        5495.0263671875,
+        1039.6429443359375
+      ],
+      "size": [
+        356.8388977050781,
+        323.2056884765625
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "image1",
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 40
+        },
+        {
+          "label": "image2",
+          "name": "image2",
+          "type": "IMAGE",
+          "link": 41
+        }
+      ],
+      "outputs": [
+        {
+          "label": "frames",
+          "name": "frames",
+          "type": "IMAGE",
+          "links": [
+            17
+          ]
+        },
+        {
+          "label": "fps_int",
+          "name": "fps_int",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DualLineTransition"
+      },
+      "widgets_values": [
+        160,
+        "horizontal",
+        30,
+        0.20000000000000004,
+        "expand",
+        0.6000000000000001,
+        0.30000000000000004,
+        "linear",
+        "linear",
+        "False",
+        16
+      ]
+    },
+    {
+      "id": 15,
+      "type": "VHS_VideoCombine",
+      "pos": [
+        6609.83349609375,
+        950.421875
+      ],
+      "size": [
+        214.7587890625,
+        542.7587890625
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "images",
+          "name": "images",
+          "type": "IMAGE",
+          "link": 17
+        },
+        {
+          "label": "audio",
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 18
+        },
+        {
+          "label": "meta_batch",
+          "name": "meta_batch",
+          "shape": 7,
+          "type": "VHS_BatchManager",
+          "link": null
+        },
+        {
+          "label": "vae",
+          "name": "vae",
+          "shape": 7,
+          "type": "VAE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "Filenames",
+          "name": "Filenames",
+          "type": "VHS_FILENAMES",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-videohelpersuite",
+        "ver": "f7369389620ff244ddd6086cf0fa792a569086f2",
+        "Node name for S&R": "VHS_VideoCombine"
+      },
+      "widgets_values": {
+        "frame_rate": 16,
+        "loop_count": 0,
+        "filename_prefix": "AnimateDiff",
+        "format": "video/h264-mp4",
+        "pix_fmt": "yuv420p",
+        "crf": 19,
+        "save_metadata": true,
+        "trim_to_audio": false,
+        "pingpong": false,
+        "save_output": true,
+        "videopreview": {
+          "hidden": false,
+          "paused": false,
+          "params": {
+            "filename": "AnimateDiff_00041-audio.mp4",
+            "subfolder": "",
+            "type": "output",
+            "format": "video/h264-mp4",
+            "frame_rate": 16,
+            "workflow": "AnimateDiff_00041.png",
+            "fullpath": "D:\\Airuanjian\\Comfyui-cu11.8\\ComfyUI_windows_portable\\ComfyUI\\output\\AnimateDiff_00041-audio.mp4"
+          }
+        }
+      }
+    },
+    {
+      "id": 16,
+      "type": "LoadAudio",
+      "pos": [
+        5509.796875,
+        1517.7891845703125
+      ],
+      "size": [
+        336.8882751464844,
+        150.12791442871094
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "label": "AUDIO",
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            18,
+            22,
+            43
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.35",
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        "5月23日.MP3",
+        null,
+        null
+      ]
+    },
+    {
+      "id": 17,
+      "type": "LinearTransition",
+      "pos": [
+        5494.48095703125,
+        312.6273498535156
+      ],
+      "size": [
+        315,
+        126
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "image1",
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 36
+        },
+        {
+          "label": "image2",
+          "name": "image2",
+          "type": "IMAGE",
+          "link": 37
+        }
+      ],
+      "outputs": [
+        {
+          "label": "frames",
+          "name": "frames",
+          "type": "IMAGE",
+          "links": [
+            23
+          ]
+        },
+        {
+          "label": "fps_int",
+          "name": "fps_int",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LinearTransition"
+      },
+      "widgets_values": [
+        136,
+        "left_to_right",
+        16
+      ]
+    },
+    {
+      "id": 18,
+      "type": "VHS_VideoCombine",
+      "pos": [
+        5958.736328125,
+        126.19495391845703
+      ],
+      "size": [
+        214.7587890625,
+        542.7587890625
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "images",
+          "name": "images",
+          "type": "IMAGE",
+          "link": 23
+        },
+        {
+          "label": "audio",
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 22
+        },
+        {
+          "label": "meta_batch",
+          "name": "meta_batch",
+          "shape": 7,
+          "type": "VHS_BatchManager",
+          "link": null
+        },
+        {
+          "label": "vae",
+          "name": "vae",
+          "shape": 7,
+          "type": "VAE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "Filenames",
+          "name": "Filenames",
+          "type": "VHS_FILENAMES",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-videohelpersuite",
+        "ver": "f7369389620ff244ddd6086cf0fa792a569086f2",
+        "Node name for S&R": "VHS_VideoCombine"
+      },
+      "widgets_values": {
+        "frame_rate": 16,
+        "loop_count": 0,
+        "filename_prefix": "AnimateDiff",
+        "format": "video/h264-mp4",
+        "pix_fmt": "yuv420p",
+        "crf": 19,
+        "save_metadata": true,
+        "trim_to_audio": false,
+        "pingpong": false,
+        "save_output": true,
+        "videopreview": {
+          "hidden": false,
+          "paused": false,
+          "params": {
+            "filename": "AnimateDiff_00042-audio.mp4",
+            "subfolder": "",
+            "type": "output",
+            "format": "video/h264-mp4",
+            "frame_rate": 16,
+            "workflow": "AnimateDiff_00042.png",
+            "fullpath": "D:\\Airuanjian\\Comfyui-cu11.8\\ComfyUI_windows_portable\\ComfyUI\\output\\AnimateDiff_00042-audio.mp4"
+          }
+        }
+      }
+    },
+    {
+      "id": 22,
+      "type": "LoadImage",
+      "pos": [
+        4200,
+        620
+      ],
+      "size": [
+        294.206298828125,
+        326
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "label": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            34
+          ]
+        },
+        {
+          "label": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.35",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "一个美国美女.jpeg",
+        "image"
+      ]
+    },
+    {
+      "id": 23,
+      "type": "LoadImage",
+      "pos": [
+        4187.16796875,
+        1101.4449462890625
+      ],
+      "size": [
+        315,
+        314
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "label": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            35
+          ]
+        },
+        {
+          "label": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.35",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Myshell_JOJO Filter_250523_162110.png",
+        "image"
+      ]
+    },
+    {
+      "id": 25,
+      "type": "Reroute",
+      "pos": [
+        4647.63037109375,
+        667.5562744140625
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "",
+          "name": "",
+          "type": "*",
+          "link": 34
+        }
+      ],
+      "outputs": [
+        {
+          "label": "",
+          "name": "",
+          "type": "IMAGE",
+          "links": [
+            36,
+            40,
+            44
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 26,
+      "type": "Reroute",
+      "pos": [
+        4597.3095703125,
+        1091.313720703125
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "",
+          "name": "",
+          "type": "*",
+          "link": 35
+        }
+      ],
+      "outputs": [
+        {
+          "label": "",
+          "name": "",
+          "type": "IMAGE",
+          "links": [
+            37,
+            41,
+            45
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 27,
+      "type": "CircularTransition",
+      "pos": [
+        5495.74072265625,
+        581.72900390625
+      ],
+      "size": [
+        315,
+        294
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "image1",
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 45
+        },
+        {
+          "label": "image2",
+          "name": "image2",
+          "type": "IMAGE",
+          "link": 44
+        }
+      ],
+      "outputs": [
+        {
+          "label": "frames",
+          "name": "frames",
+          "type": "IMAGE",
+          "links": [
+            42
+          ]
+        },
+        {
+          "label": "fps_int",
+          "name": "fps_int",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CircularTransition"
+      },
+      "widgets_values": [
+        160,
+        "expand",
+        0.5,
+        0.5,
+        0,
+        1,
+        0,
+        "ease_out",
+        "False",
+        24
+      ]
+    },
+    {
+      "id": 28,
+      "type": "VHS_VideoCombine",
+      "pos": [
+        6306.97216796875,
+        555.3245239257812
+      ],
+      "size": [
+        214.7587890625,
+        542.7587890625
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "images",
+          "name": "images",
+          "type": "IMAGE",
+          "link": 42
+        },
+        {
+          "label": "audio",
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 43
+        },
+        {
+          "label": "meta_batch",
+          "name": "meta_batch",
+          "shape": 7,
+          "type": "VHS_BatchManager",
+          "link": null
+        },
+        {
+          "label": "vae",
+          "name": "vae",
+          "shape": 7,
+          "type": "VAE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "Filenames",
+          "name": "Filenames",
+          "type": "VHS_FILENAMES",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-videohelpersuite",
+        "ver": "f7369389620ff244ddd6086cf0fa792a569086f2",
+        "Node name for S&R": "VHS_VideoCombine"
+      },
+      "widgets_values": {
+        "frame_rate": 16,
+        "loop_count": 0,
+        "filename_prefix": "AnimateDiff",
+        "format": "video/h264-mp4",
+        "pix_fmt": "yuv420p",
+        "crf": 19,
+        "save_metadata": true,
+        "trim_to_audio": false,
+        "pingpong": false,
+        "save_output": true,
+        "videopreview": {
+          "hidden": false,
+          "paused": false,
+          "params": {
+            "filename": "AnimateDiff_00043-audio.mp4",
+            "subfolder": "",
+            "type": "output",
+            "format": "video/h264-mp4",
+            "frame_rate": 16,
+            "workflow": "AnimateDiff_00043.png",
+            "fullpath": "D:\\Airuanjian\\Comfyui-cu11.8\\ComfyUI_windows_portable\\ComfyUI\\output\\AnimateDiff_00043-audio.mp4"
+          }
+        }
+      }
+    }
+  ],
+  "links": [
+    [
+      17,
+      14,
+      0,
+      15,
+      0,
+      "IMAGE"
+    ],
+    [
+      18,
+      16,
+      0,
+      15,
+      1,
+      "AUDIO"
+    ],
+    [
+      22,
+      16,
+      0,
+      18,
+      1,
+      "AUDIO"
+    ],
+    [
+      23,
+      17,
+      0,
+      18,
+      0,
+      "IMAGE"
+    ],
+    [
+      34,
+      22,
+      0,
+      25,
+      0,
+      "*"
+    ],
+    [
+      35,
+      23,
+      0,
+      26,
+      0,
+      "*"
+    ],
+    [
+      36,
+      25,
+      0,
+      17,
+      0,
+      "IMAGE"
+    ],
+    [
+      37,
+      26,
+      0,
+      17,
+      1,
+      "IMAGE"
+    ],
+    [
+      40,
+      25,
+      0,
+      14,
+      0,
+      "IMAGE"
+    ],
+    [
+      41,
+      26,
+      0,
+      14,
+      1,
+      "IMAGE"
+    ],
+    [
+      42,
+      27,
+      0,
+      28,
+      0,
+      "IMAGE"
+    ],
+    [
+      43,
+      16,
+      0,
+      28,
+      1,
+      "AUDIO"
+    ],
+    [
+      44,
+      25,
+      0,
+      27,
+      1,
+      "IMAGE"
+    ],
+    [
+      45,
+      26,
+      0,
+      27,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.6934334949441622,
+      "offset": [
+        -3960.812465319671,
+        19.484190547401553
+      ]
+    },
+    "frontendVersion": "1.17.11",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0
+  },
+  "version": 0.4
+}
