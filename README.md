@@ -130,6 +130,8 @@
 - 建议使用相同尺寸、相似内容的图片/序列以获得最佳效果。
 
 ---
+![image](https://github.com/user-attachments/assets/385095d6-e6d7-4bf3-ace7-1315b6435272)
+![6月13日](https://github.com/user-attachments/assets/e8fbc5b6-ead3-4bfd-b7c2-d8b1c48454e5)
 
 ## 示例工作流
 
