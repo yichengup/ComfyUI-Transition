@@ -6,6 +6,7 @@ import torch.nn.functional as F
 class LinearTransition:
     """
     实现两张图片之间的线性过渡效果，从左到右逐渐过渡
+    支持过渡线描边效果
     """
     
     @classmethod
@@ -14,9 +15,11 @@ class LinearTransition:
             "required": {
                 "image1": ("IMAGE",),  # 起始图片
                 "image2": ("IMAGE",),  # 结束图片
-                "frames": ("INT", {"default": 24, "min": 2, "max": 240, "step": 1}),  # 过渡帧数
+                "frames": ("INT", {"default": 24, "min": 2, "max": 600, "step": 1}),  # 过渡帧数
                 "direction": (["left_to_right", "right_to_left", "top_to_bottom", "bottom_to_top"], {"default": "left_to_right"}),  # 过渡方向
                 "fps": ("FLOAT", {"default": 24.0, "min": 1.0, "max": 60.0, "step": 0.1}),  # 视频帧率
+                "border_width": ("INT", {"default": 0, "min": 0, "max": 50, "step": 1}),  # 描边宽度（像素）
+                "border_color": ("STRING", {"default": "#FF0000"}),  # 描边颜色（十六进制）
             }
         }
     
@@ -25,7 +28,66 @@ class LinearTransition:
     FUNCTION = "generate_transition"
     CATEGORY = "Transition"
     
-    def generate_transition(self, image1, image2, frames, direction, fps):
+    def hex_to_rgb(self, hex_color):
+        """将十六进制颜色转换为RGB值（0-1范围）"""
+        hex_color = hex_color.lstrip('#')
+        if len(hex_color) != 6:
+            hex_color = "FF0000"  # 默认红色
+        try:
+            r = int(hex_color[0:2], 16) / 255.0
+            g = int(hex_color[2:4], 16) / 255.0
+            b = int(hex_color[4:6], 16) / 255.0
+            return torch.tensor([r, g, b])
+        except ValueError:
+            return torch.tensor([1.0, 0.0, 0.0])  # 默认红色
+    
+    def create_border_mask(self, mask, threshold, border_width, direction, height, width):
+        """创建描边遮罩 - 只在过渡边界线上"""
+        if border_width <= 0:
+            return torch.zeros(1, height, width)
+        
+        # 直接根据过渡阈值创建边界线
+        border_mask = torch.zeros(1, height, width)
+        
+        if direction == "left_to_right":
+            # 找到过渡线的位置（阈值对应的X坐标）
+            line_x = int(threshold * width)
+            # 在线的位置及其周围创建描边
+            for offset in range(-border_width, border_width + 1):
+                x_pos = line_x + offset
+                if 0 <= x_pos < width:
+                    border_mask[0, :, x_pos] = 1.0
+                    
+        elif direction == "right_to_left":
+            # 找到过渡线的位置
+            line_x = int((1 - threshold) * width)
+            # 在线的位置及其周围创建描边
+            for offset in range(-border_width, border_width + 1):
+                x_pos = line_x + offset
+                if 0 <= x_pos < width:
+                    border_mask[0, :, x_pos] = 1.0
+                    
+        elif direction == "top_to_bottom":
+            # 找到过渡线的位置
+            line_y = int(threshold * height)
+            # 在线的位置及其周围创建描边
+            for offset in range(-border_width, border_width + 1):
+                y_pos = line_y + offset
+                if 0 <= y_pos < height:
+                    border_mask[0, y_pos, :] = 1.0
+                    
+        elif direction == "bottom_to_top":
+            # 找到过渡线的位置
+            line_y = int((1 - threshold) * height)
+            # 在线的位置及其周围创建描边
+            for offset in range(-border_width, border_width + 1):
+                y_pos = line_y + offset
+                if 0 <= y_pos < height:
+                    border_mask[0, y_pos, :] = 1.0
+        
+        return border_mask
+    
+    def generate_transition(self, image1, image2, frames, direction, fps, border_width, border_color):
         # 确保两张图片有相同的尺寸
         if image1.shape[1:] != image2.shape[1:]:
             # 将第二张图调整为第一张图的尺寸
@@ -41,6 +103,9 @@ class LinearTransition:
         output_frames = []
         
         height, width = image1.shape[1], image1.shape[2]
+        
+        # 转换描边颜色
+        border_rgb = self.hex_to_rgb(border_color)
         
         for i in range(frames):
             # 创建渐变遮罩
@@ -59,6 +124,18 @@ class LinearTransition:
             
             # 混合两张图片
             blended = img1 * (1 - binary_mask).unsqueeze(-1) + img2 * binary_mask.unsqueeze(-1)
+            
+            # 添加描边效果
+            if border_width > 0:
+                # 创建描边遮罩
+                border_mask = self.create_border_mask(mask, threshold, border_width, direction, height, width)
+                
+                # 应用描边颜色
+                border_color_tensor = border_rgb.view(1, 1, 1, 3).repeat(1, height, width, 1)
+                
+                # 在描边区域应用颜色
+                blended = blended * (1 - border_mask).unsqueeze(-1) + border_color_tensor * border_mask.unsqueeze(-1)
+            
             output_frames.append(blended)
         
         # 将所有帧堆叠为一个批量图片
